@@ -40,3 +40,16 @@ export interface CartItem {
 }
 
 export type Cart = CartItem[];
+
+export interface OrderItem {
+  product: Product; // Lưu toàn bộ thông tin sản phẩm
+  quantity: number;
+}
+
+export interface Order {
+  id: string;
+  date: string;
+  total: number;
+  status: string;
+  items: OrderItem[];
+}

@@ -5,14 +5,15 @@ import {
   VoucherIcon,
 } from "@/components/vectors";
 import { useToBeImplemented } from "@/hooks";
-import { useNavigate } from "react-router-dom"; // Import hook useNavigate
+
+import { useNavigate } from "react-router-dom";
 
 export default function ProfileActions() {
   const toBeImplemented = useToBeImplemented();
-  const navigate = useNavigate(); // Sử dụng hook useNavigate
+  const navigate = useNavigate();
 
   const handleVoucherClick = () => {
-    navigate('/vouchers'); // Điều hướng đến trang voucher
+    navigate('/vouchers');
   };
 
   return (
@@ -36,7 +37,7 @@ export default function ProfileActions() {
         {
           label: "Lịch sử mua hàng",
           icon: OrderHistoryIcon,
-          onClick: toBeImplemented,
+          onClick: () => navigate("/profile/purchase-history"),
         },
       ].map((action) => (
         <div
