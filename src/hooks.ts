@@ -3,10 +3,11 @@ import { MutableRefObject, useLayoutEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { UIMatch, useMatches } from "react-router-dom";
 import { cartState, cartTotalState } from "@/state";
-import { Cart, CartItem, Product, SelectedOptions } from "types";
+import { Cart, CartItem, Product, SelectedOptions, Order, OrderItem} from "@/types";
 import { getDefaultOptions, isIdentical } from "@/utils/cart";
 import { getConfig } from "@/utils/template";
 import { openChat, purchase } from "zmp-sdk";
+import { ordersState } from "@/state/state";
 
 export function useRealHeight(
   element: MutableRefObject<HTMLDivElement | null>,
@@ -121,25 +122,50 @@ export function useToBeImplemented() {
 
 export function useCheckout() {
   const { totalAmount } = useAtomValue(cartTotalState);
+  const cartItems = useAtomValue(cartState);
   const setCart = useSetAtom(cartState);
-  return async () => {
+  const setOrders = useSetAtom(ordersState);
+
+  const checkout = async () => {
     try {
+      if (isNaN(totalAmount) || totalAmount <= 0) {
+        toast.error("Số tiền thanh toán không hợp lệ!");
+        return;
+      }
+
+      const orderItems: OrderItem[] = cartItems.map((cartItem) => ({
+        product: cartItem.product, // Lưu toàn bộ thông tin sản phẩm
+        quantity: cartItem.quantity,
+      }));
+
+      const newOrder: Order = {
+        id: Math.random().toString(36).substr(2, 9),
+        date: new Date().toISOString().split("T")[0],
+        total:  Number(totalAmount),
+        status: "Chờ xác nhận",
+        items: orderItems,
+      };
+
+      // Thêm đơn hàng mới vào danh sách orders
+      setOrders((prevOrders: Order[]) => [...prevOrders, newOrder]);
+
       await purchase({
-        amount: totalAmount,
+        amount: Number(totalAmount), 
         desc: "Thanh toán đơn hàng",
         method: "",
-      });
+      });      
+
       toast.success("Thanh toán thành công. Cảm ơn bạn đã mua hàng!", {
         icon: "🎉",
       });
       setCart([]);
     } catch (error) {
-      toast.error(
-        "Thanh toán thất bại. Vui lòng kiểm tra nội dung lỗi bên trong Console."
-      );
+      toast.error("Thanh toán thất bại. Vui lòng kiểm tra nội dung lỗi bên trong Console.");
       console.warn(error);
     }
   };
+
+  return checkout; // ✅ Trả về function, không phải async function trực tiếp
 }
 
 export function useRouteHandle() {
