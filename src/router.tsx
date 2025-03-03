@@ -5,6 +5,7 @@ import CategoryListPage from "@/pages/catalog/category-list";
 import ProductDetailPage from "@/pages/catalog/product-detail";
 import HomePage from "@/pages/home";
 import ProfilePage from "@/pages/profile";
+import PersonInfoPage from "@/pages/profile/person-info";
 import SearchPage from "@/pages/search";
 import VoucherPage from "@/components/voucher"; // Import trang voucher
 import PurchaseHistoryPage from "@/pages/profile/purchase-history";
@@ -44,6 +45,13 @@ const router = createBrowserRouter(
           element: <ProfilePage />,
           handle: {
             logo: true,
+          },
+        },
+        {
+          path: "/profile/info",
+          element: <PersonInfoPage />,
+          handle: {
+            title: "Thông tin tài khoản",
           },
         },
         {

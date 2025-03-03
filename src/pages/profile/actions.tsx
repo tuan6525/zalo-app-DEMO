@@ -5,7 +5,6 @@ import {
   VoucherIcon,
 } from "@/components/vectors";
 import { useToBeImplemented } from "@/hooks";
-
 import { useNavigate } from "react-router-dom";
 
 export default function ProfileActions() {
@@ -22,7 +21,7 @@ export default function ProfileActions() {
         {
           label: "Thông tin tài khoản",
           icon: ProfileIcon,
-          onClick: toBeImplemented,
+          onClick: () => navigate("/profile/info"),
         },
         {
           label: "Đổi voucher",
