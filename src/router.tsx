@@ -6,6 +6,7 @@ import ProductDetailPage from "@/pages/catalog/product-detail";
 import HomePage from "@/pages/home";
 import ProfilePage from "@/pages/profile";
 import SearchPage from "@/pages/search";
+import VoucherPage from "@/components/voucher"; // Import trang voucher
 import { createBrowserRouter } from "react-router-dom";
 import { getBasePath } from "@/utils/zma";
 
@@ -71,6 +72,13 @@ const router = createBrowserRouter(
           element: <SearchPage />,
           handle: {
             title: "Tìm kiếm",
+          },
+        },
+        {
+          path: "/vouchers",
+          element: <VoucherPage />, // Thêm route mới cho trang voucher
+          handle: {
+            title: "Danh sách Voucher",
           },
         },
       ],

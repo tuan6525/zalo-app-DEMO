@@ -5,9 +5,15 @@ import {
   VoucherIcon,
 } from "@/components/vectors";
 import { useToBeImplemented } from "@/hooks";
+import { useNavigate } from "react-router-dom"; // Import hook useNavigate
 
 export default function ProfileActions() {
   const toBeImplemented = useToBeImplemented();
+  const navigate = useNavigate(); // Sử dụng hook useNavigate
+
+  const handleVoucherClick = () => {
+    navigate('/vouchers'); // Điều hướng đến trang voucher
+  };
 
   return (
     <div className="bg-white rounded-lg p-4 grid grid-cols-4 gap-4 border-[0.5px] border-black/15">
@@ -20,7 +26,7 @@ export default function ProfileActions() {
         {
           label: "Đổi voucher",
           icon: VoucherIcon,
-          onClick: toBeImplemented,
+          onClick: handleVoucherClick, // Sử dụng hàm điều hướng khi nhấn vào "Đổi voucher"
         },
         {
           label: "Theo dõi đơn hàng",

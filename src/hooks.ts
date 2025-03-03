@@ -156,3 +156,34 @@ export function useRouteHandle() {
 
   return [lastMatch.handle, lastMatch, matches] as const;
 }
+
+
+
+
+const fakeVoucherData = [
+  { code: 'ABC123', isValid: true },
+  { code: 'XYZ456', isValid: false },
+  { code: 'DEF789', isValid: true },
+];
+
+export function useVoucherRedeem() {
+  const [isRedeemed, setIsRedeemed] = useState(false);
+
+  const handleVoucherRedeem = (voucherCode) => {
+    // Logic để đổi voucher ở đây
+    const voucher = fakeVoucherData.find(v => v.code === voucherCode);
+
+    if (voucher) {
+      if (voucher.isValid) {
+        setIsRedeemed(true);
+        alert('Voucher đã được đổi thành công!');
+      } else {
+        alert('Voucher không hợp lệ. Vui lòng thử lại.');
+      }
+    } else {
+      alert('Voucher không tồn tại. Vui lòng thử lại.');
+    }
+  };
+
+  return handleVoucherRedeem;
+}
