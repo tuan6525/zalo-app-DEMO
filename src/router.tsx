@@ -6,6 +6,7 @@ import ProductDetailPage from "@/pages/catalog/product-detail";
 import HomePage from "@/pages/home";
 import ProfilePage from "@/pages/profile";
 import SearchPage from "@/pages/search";
+import PurchaseHistoryPage from "@/pages/profile/purchase-history";
 import { createBrowserRouter } from "react-router-dom";
 import { getBasePath } from "@/utils/zma";
 
@@ -71,6 +72,13 @@ const router = createBrowserRouter(
           element: <SearchPage />,
           handle: {
             title: "Tìm kiếm",
+          },
+        },
+        {
+          path: "/profile/purchase-history",
+          element: <PurchaseHistoryPage />,
+          handle: {
+            title: "Lịch sử mua hàng",
           },
         },
       ],
